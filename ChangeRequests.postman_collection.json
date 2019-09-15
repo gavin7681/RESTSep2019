@@ -1,0 +1,184 @@
+{
+	"info": {
+		"_postman_id": "4e4b9955-f107-4027-b5c0-ab7a2ab961ec",
+		"name": "ChangeRequests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Change Requests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a89dd8bc-c567-49cd-bbbb-4437c6a7689d",
+						"exec": [
+							"var response = pm.response.json();",
+							"",
+							"console.log(response.result.length);",
+							"",
+							"pm.globals.set(\"Global.Count\", response.result.length);",
+							"",
+							"var random = Math.floor(Math.random()*Math.floor(response.result.length));",
+							"console.log(random);",
+							"var sys= response.result[random].sys_id;",
+							"console.log(sys);",
+							"pm.globals.set(\"Global.Sys_Id\", sys);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{ServerName}}/api/now/v2/table/{{table}}?sysparm_fields=sys_id, number,caller",
+					"protocol": "https",
+					"host": [
+						"{{ServerName}}"
+					],
+					"path": [
+						"api",
+						"now",
+						"v2",
+						"table",
+						"{{table}}"
+					],
+					"query": [
+						{
+							"key": "sysparm_fields",
+							"value": "sys_id, number,caller"
+						},
+						{
+							"key": "type",
+							"value": "normal",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an existing CR",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://{{ServerName}}/api/now/v2/table/{{table}}/{{Global.Sys_Id}}",
+					"protocol": "https",
+					"host": [
+						"{{ServerName}}"
+					],
+					"path": [
+						"api",
+						"now",
+						"v2",
+						"table",
+						"{{table}}",
+						"{{Global.Sys_Id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm Deleted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a89dd8bc-c567-49cd-bbbb-4437c6a7689d",
+						"exec": [
+							"var response = pm.response.json();",
+							"console.log(response.result.length);",
+							"pm.test(\"Successful Delete\", function () {",
+							"    if(response.result.length == pm.globals.get(\"Global.Count\")-1){",
+							"    console.log(\"Matched\");",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{ServerName}}/api/now/v2/table/{{table}}?sysparm_fields=sys_id, number,caller",
+					"protocol": "https",
+					"host": [
+						"{{ServerName}}"
+					],
+					"path": [
+						"api",
+						"now",
+						"v2",
+						"table",
+						"{{table}}"
+					],
+					"query": [
+						{
+							"key": "sysparm_fields",
+							"value": "sys_id, number,caller"
+						},
+						{
+							"key": "type",
+							"value": "normal",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "7QSEbbY9Hnqb",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "ca3132c9-5f53-4a50-be50-7217f3c052c4",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f42e4c71-9c4d-4ccd-801d-29702a47ebdd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "a2bae587-0787-4820-9e26-d7ed466db44f",
+			"key": "table",
+			"value": "change_request",
+			"type": "string"
+		}
+	]
+}

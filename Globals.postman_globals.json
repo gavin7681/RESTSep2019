@@ -1,0 +1,19 @@
+{
+	"id": "146e52f0-fd32-4814-8e58-8a3c0f4d5eb7",
+	"values": [
+		{
+			"key": "Global.Sys_Id",
+			"value": "Unknown",
+			"enabled": true
+		},
+		{
+			"key": "Global.Count",
+			"value": "0",
+			"enabled": true
+		}
+	],
+	"name": "My Workspace Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2019-09-08T11:27:18.168Z",
+	"_postman_exported_using": "Postman/7.6.0"
+}
